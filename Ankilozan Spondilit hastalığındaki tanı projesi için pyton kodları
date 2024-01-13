@@ -1,1 +1,34 @@
-Ankilozan Spondilit hastalığındaki tanı projesi için pyton kodlar
+import cv2
+import tensorflow as tf
+
+# Model yükleme
+model = tf.keras.models.load_model('model_yolu/model_adı.h5')
+
+# Web kamerasını başlat
+cap = cv2.VideoCapture(0)
+
+while True:
+    # Web kamerasından bir kare al
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Görüntüyü model için uygun hale getir
+    processed_frame = ...  # Görüntüyü işle (örn. yeniden boyutlandırma, normalleştirme)
+
+    # Model ile tahmin yap
+    predictions = model.predict(processed_frame)
+
+    # Tahminleri işle ve göster
+    # ...
+
+    # Görüntüyü göster
+    cv2.imshow('Webcam', frame)
+
+    # 'q' tuşuna basılırsa döngüden çık
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+# Her şeyi serbest bırak ve pencereleri kapat
+cap.release()
+cv2.destroyAllWindows()
